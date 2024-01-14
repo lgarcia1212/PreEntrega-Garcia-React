@@ -1,13 +1,18 @@
-import React from 'react'
-import { FaCartShopping } from "react-icons/fa6";
-
+import React from 'react';
+import { FaShoppingCart } from 'react-icons/fa';
+import { useCartContext } from '../Context/CartContext';
 
 const CartWidget = () => {
-  return (
-    <div>
-      <FaCartShopping className='cart-widget'/>
-    </div>
-  )
-}
+  const { totalProducts } = useCartContext();
 
-export default CartWidget
+  return (
+    <div className="container">
+      <button>
+        <FaShoppingCart className='cart-widget' />
+        {totalProducts() > 0 && <span>{totalProducts()}</span>}
+      </button>
+    </div>
+  );
+};
+
+export default CartWidget;

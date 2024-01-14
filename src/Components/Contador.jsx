@@ -1,15 +1,43 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-const Contador = () => {
-    const [contador, setContador] = useState(0);
+const Contador = ({ maxStock, onAdd }) => {
+  const [contador, setContador] = useState(1);
+
+  const handleIncrement = () => {
+    if (contador < maxStock) {
+      setContador((prevContador) => prevContador + 1);
+    }
+  };
+
+  const handleDecrement = () => {
+    if (contador > 1) {
+      setContador((prevContador) => prevContador - 1);
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (contador <= maxStock) {
+      onAdd(contador);
+    } else {
+      alert('No hay suficiente stock.');
+      setContador(maxStock);
+    }
+  };
 
   return (
-    <div className='contador'>
-        <button className='contador-button' onClick={()=>setContador (contador +1)}>+</button>   
-        <h3>{contador}</h3> 
-        <button className='contador-button' onClick={()=>setContador (contador -1)}>-</button>
+    <div className='counter'>
+      <button className='btn btn-secondary' onClick={handleIncrement} disabled={contador === maxStock}>
+        +
+      </button>
+      <h3>{contador}</h3>
+      <button className='btn btn-secondary' onClick={handleDecrement} disabled={contador === 1}>
+        -
+      </button>
+      <button className='btn btn-secondary' onClick={handleAddToCart}>
+        Agregar al Carrito
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default Contador
+export default Contador;
